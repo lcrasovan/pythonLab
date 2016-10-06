@@ -52,10 +52,12 @@ engine = create_engine(connectionString)
 
 dataFrame = pd.read_sql_query(query,engine)
 
-for index, row in dataFrame.head(600).iterrows():
+for index, row in dataFrame[0:2000].iterrows():
     correctedImageName = row['imageName'].encode('utf-8')
+    print correctedImageName
     fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
-    if dimensions[0]: 
+    print fileSize, dimensions
+    if dimensions and dimensions[0]: 
         if int(dimensions[0]) < minWidth:
             filePath = 'data/paris/' + row['restaurant'] + '.csv'
             if not os.path.isfile(filePath):
