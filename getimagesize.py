@@ -4,13 +4,19 @@ import pandas as pd
 import urllib
 from PIL import ImageFile
 from sqlalchemy import create_engine
-
+import os
 
 def createFolderPath(path):
+    os.makedirs(path)
     return 1
 
 def downloadImage(uri, localPath):
     return 1
+    
+def storeImageInfo(filePath, imageData):
+    with open(filePath, "a") as myfile:
+        myfile.write(imageData)
+    return 1    
 
 def getImageSizes(uri):
     file = urllib.urlopen(uri)
@@ -29,7 +35,7 @@ def getImageSizes(uri):
     return size, None
 
 config = ConfigParser.ConfigParser()
-config.read("/Users/restoin/projects/python/settings.ini")
+config.read("/Users/restoin/projects/pythonLab/settings.ini")
 
 userName = config.get('MySqlSection','user')
 password = config.get('MySqlSection','password')
@@ -37,6 +43,7 @@ hostname = config.get('MySqlSection','host')
 database = config.get('MySqlSection','database')
 charset = config.get('MySqlSection','charset')
 urlAmazonS3 = config.get('AWS','urlAmazonS3')
+minWidth = int(config.get('images','minWidth'))
 query = config.get('Repository','findImagesByCityAndProvider')
 
 connectionString = 'mysql+pymysql://' + userName + ':' + password + '@' + hostname + '/' + database + '?charset=' + charset  
@@ -45,8 +52,14 @@ engine = create_engine(connectionString)
 
 dataFrame = pd.read_sql_query(query,engine)
 
-for index, row in dataFrame.head(10).iterrows():
-        
+for index, row in dataFrame.head(600).iterrows():
     correctedImageName = row['imageName'].encode('utf-8')
     fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
-    print row['restaurant'], row['id'], row['imageName'], fileSize, dimensions
+    if dimensions[0]: 
+        if int(dimensions[0]) < minWidth:
+            filePath = 'data/paris/' + row['restaurant'] + '.csv'
+            if not os.path.isfile(filePath):
+                header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'
+                storeImageInfo(filePath, header)    
+            photoInfo = str(row['productId']) + ',' + row['productName'].encode('utf-8') + ',' + str(row['id']) + ',' + correctedImageName + '\r\n'
+            storeImageInfo(filePath, photoInfo)
