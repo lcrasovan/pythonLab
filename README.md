@@ -1,5 +1,12 @@
 # Python laboratory - code here is tested with Python 2.7.1
 
+### Environment setting
+
+First of all copy default settings file and customize it
+
+'''
+cp settings.default.ini settings.ini
+
 ### Image quality check process: getimagesize.py
 
 The following problem is solved: 

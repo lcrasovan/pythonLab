@@ -35,7 +35,7 @@ def getImageSizes(uri):
     return size, None
 
 config = ConfigParser.ConfigParser()
-config.read("/Users/restoin/projects/pythonLab/settings.ini")
+config.read("./settings.ini")
 
 userName = config.get('MySqlSection','user')
 password = config.get('MySqlSection','password')
@@ -52,7 +52,7 @@ engine = create_engine(connectionString)
 
 dataFrame = pd.read_sql_query(query,engine)
 
-for index, row in dataFrame[6001:8000].iterrows():
+for index, row in dataFrame[0:2000].iterrows():
     correctedImageName = row['imageName'].encode('utf-8')
     print correctedImageName
     fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
