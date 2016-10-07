@@ -35,7 +35,7 @@ def getImageSizes(uri):
     return size, None
 
 config = ConfigParser.ConfigParser()
-config.read("./settings.ini")
+config.read("./config/settings.ini")
 
 userName = config.get('MySqlSection','user')
 password = config.get('MySqlSection','password')

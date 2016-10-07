@@ -5,8 +5,9 @@
 First of all copy default settings file and customize it
 
 ```shell
-// Your code here
+cp settings.default.ini settings.ini
 ```
+
 ### Image quality check process: getimagesize.py
 
 The following problem is solved: 

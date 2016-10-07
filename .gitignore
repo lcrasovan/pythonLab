@@ -1,5 +1,5 @@
 .idea
-settings.ini
+config/settings.ini
 *.pyc
 images/*
 data/*
