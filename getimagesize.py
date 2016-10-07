@@ -52,7 +52,7 @@ engine = create_engine(connectionString)
 
 dataFrame = pd.read_sql_query(query,engine)
 
-for index, row in dataFrame[0:2000].iterrows():
+for index, row in dataFrame[6001:8000].iterrows():
     correctedImageName = row['imageName'].encode('utf-8')
     print correctedImageName
     fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
