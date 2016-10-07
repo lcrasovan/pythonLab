@@ -49,17 +49,17 @@ minWidth = int(config.get('images','minWidth'))
 connectionString = 'mysql+pymysql://' + userName + ':' + password + '@' + hostname + '/' + database + '?charset=' + charset  
 
 dataFrame = MySqlImageRepository(connectionString).findImagesByQuery(query)
-#
-#for index, row in dataFrame[0:2].iterrows():
-#    correctedImageName = row['imageName'].encode('utf-8')
-#    print correctedImageName
-#    fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
-#    print fileSize, dimensions
-#    if dimensions and dimensions[0]: 
-#        if int(dimensions[0]) < minWidth:
-#            filePath = 'data/barcelona/' + row['restaurant'] + '.csv'
-#            if not os.path.isfile(filePath):
-#                header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'
-#                storeImageInfo(filePath, header)    
-#            photoInfo = str(row['productId']) + ',' + row['productName'].encode('utf-8') + ',' + str(row['id']) + ',' + correctedImageName + '\r\n'
-#            storeImageInfo(filePath, photoInfo)
+
+for index, row in dataFrame[0:2000].iterrows():
+    correctedImageName = row['imageName'].encode('utf-8')
+    print correctedImageName
+    fileSize, dimensions = getImageSizes(urlAmazonS3 + correctedImageName)
+    print fileSize, dimensions
+    if dimensions and dimensions[0]: 
+        if int(dimensions[0]) < minWidth:
+            filePath = 'data/barcelona/' + row['restaurant'] + '.csv'
+            if not os.path.isfile(filePath):
+                header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'
+                storeImageInfo(filePath, header)    
+            photoInfo = str(row['productId']) + ',' + row['productName'].encode('utf-8') + ',' + str(row['id']) + ',' + correctedImageName + '\r\n'
+            storeImageInfo(filePath, photoInfo)
