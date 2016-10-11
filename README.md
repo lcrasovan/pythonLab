@@ -8,6 +8,20 @@ First of all copy default settings file and customize it
 cp settings.default.ini settings.ini
 ```
 
+Install the autopep8 
+
+```shell
+pip install autopep8
+pip install pep8
+```
+
+for keeping the code up to date with the code style standards. To autocorrect code style just run:
+
+
+```shell
+autopep8 your_python_file.py
+```
+
 ### Image quality check process: imageProcessor.py
 
 The following problem is solved: 
