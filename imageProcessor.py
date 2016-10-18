@@ -20,6 +20,7 @@ minWidth = int(config.get('images', 'minWidth'))
 cityId = '11'
 imageFileDestination = config.get('cities', cityId)
 
+
 connectionString = 'mysql+pymysql://' + userName + ':' + password + \
     '@' + hostname + '/' + database + '?charset=' + charset
 
