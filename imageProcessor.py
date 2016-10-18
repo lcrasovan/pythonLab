@@ -5,8 +5,8 @@ from helpers.imageutils import ImageUtils
 import os
 
 config = ConfigParser.ConfigParser()
-config.read(os.path.join(os.path.abspath(
-    os.path.dirname(__file__)), 'config', 'settings.ini'))
+currentDir = os.path.abspath(os.path.dirname(__file__))
+config.read(os.path.join(currentDir, 'config', 'settings.ini'))
 userName = config.get('MySqlSection', 'user')
 password = config.get('MySqlSection', 'password')
 hostname = config.get('MySqlSection', 'host')
@@ -33,7 +33,7 @@ for index, row in dataFrame[0:2000].iterrows():
     print fileSize, dimensions
     if dimensions and dimensions[0]:
         if int(dimensions[0]) < minWidth:
-            filePath = os.path.join(os.path.abspath(os.path.dirname(__file__)), imageFileDestination, row['restaurant'] + '.csv')
+            filePath = os.path.join(currentDir, imageFileDestination, row['restaurant'] + '.csv')
             correctedProductName = row['productName'].encode('utf-8')
             if not os.path.isfile(filePath):
                 header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'
