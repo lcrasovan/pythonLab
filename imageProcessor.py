@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import ConfigParser
 from repository.mySqlImageRepository import MySqlImageRepository
-from helpers.imagesize import ImageUtils
+from helpers.imageutils import ImageUtils
 import os
 
 config = ConfigParser.ConfigParser()
@@ -33,7 +33,7 @@ for index, row in dataFrame[0:2000].iterrows():
     print fileSize, dimensions
     if dimensions and dimensions[0]:
         if int(dimensions[0]) < minWidth:
-            filePath = imageFileDestination + row['restaurant'] + '.csv'
+            filePath = os.path.join(os.path.abspath(os.path.dirname(__file__)), imageFileDestination, row['restaurant'] + '.csv')
             correctedProductName = row['productName'].encode('utf-8')
             if not os.path.isfile(filePath):
                 header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'

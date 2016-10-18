@@ -21,6 +21,10 @@ class ImageUtils:
         file.close()
         return size, None
         
+    def downloadImage(slf, uri, filePath):
+        with open(filePath,'wb') as file:
+            file.write(urllib.urlopen(uri).read())
+            return 1
         
     def storeImageInfo(self, filePath, imageData):
         with open(filePath, "a") as myfile:
