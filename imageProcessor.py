@@ -17,7 +17,7 @@ query = config.get('Repository', 'findImagesByCityAndProvider')
 urlAmazonS3 = config.get('AWS', 'urlAmazonS3')
 minWidth = int(config.get('images', 'minWidth'))
 
-cityId = '11'
+cityId = '10'
 imageFileDestination = config.get('cities', cityId)
 
 
@@ -39,6 +39,8 @@ for index, row in dataFrame[0:2000].iterrows():
             if not os.path.isfile(filePath):
                 header = 'ProductId,ProductName,ImageId,ImageFile' + '\r\n'
                 ImageUtils().storeImageInfo(filePath, header)
-            photoInfo = str(row['productId']) + ',' + correctedProductName 
-            + ',' + str(row['id']) + ',' + correctedImageName + '\r\n'
+            id = str(row['id']) if row['id'] else ''
+            productId = str(row['productId']) if row['productId'] else ''
+                
+            photoInfo = productId + ',' + correctedProductName + ',' + id + ',' + correctedImageName + '\r\n'
             ImageUtils().storeImageInfo(filePath, photoInfo)
