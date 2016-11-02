@@ -36,4 +36,4 @@ If image is too small, put its name in a local file for further info
 python -m unittest discover
 ```
 
-This will look for all files starting with test\* in the \'test\' folder and execute them 
+This will look for all files starting with test\* in the 'test' folder and execute them 
