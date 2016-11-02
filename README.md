@@ -30,3 +30,10 @@ Loop through all images  - get names from MySQL database
 Get image size without downloading it (they are HQ images - 4000 x 3000 pixels) from the first 1024 bytes of the file  
 If image is too small, put its name in a local file for further info
 
+### Running tests - from the console in the root folder execute 
+
+```shell
+python -m unittest discover
+```
+
+This will look for all files starting with test\* in the \'test\' folder and execute them 
