@@ -17,7 +17,7 @@ query = config.get('Repository', 'findImagesByCityAndProvider')
 urlAmazonS3 = config.get('AWS', 'urlAmazonS3')
 minWidth = int(config.get('images', 'minWidth'))
 
-cityId = '10'
+cityId = '2'
 imageFileDestination = config.get('cities', cityId)
 
 
